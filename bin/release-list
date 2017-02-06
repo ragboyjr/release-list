@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+const argv = require('yargs')
+    .usage("usage: $0 <rev> -r [regex]")
+    .describe('r', 'The regex for parsing the body')
+    .demandCommand(1)
+    .help('h')
+    .alias('h', 'help')
+    .argv;
+
+const releaseList = require('../release-list');
+
+if (argv.r) {
+    parseBody = releaseList.reParseBody(argv.r);
+} else {
+    parseBody = releaseList.nullParseBody;
+}
+
+const list = releaseList.listReleases(parseBody);
+list(argv._[0]).then(releaseList.printReleases, (err, stderr) => {
+    console.log(err, stderr);
+});

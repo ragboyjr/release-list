@@ -1,0 +1,29 @@
+{
+  "name": "release-list",
+  "version": "0.1.0",
+  "description": "Parse git commits for release descriptions",
+  "main": "release-list.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ragboyjr/release-list.git"
+  },
+  "keywords": [
+    "git",
+    "release"
+  ],
+  "author": "RJ Garcia <rj@bighead.net>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ragboyjr/release-list/issues"
+  },
+  "homepage": "https://github.com/ragboyjr/release-list#readme",
+  "bin": {
+    "release-list": "./bin/release-list"
+  },
+  "dependencies": {
+    "yargs": "^6.6.0"
+  }
+}
