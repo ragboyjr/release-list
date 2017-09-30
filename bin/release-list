@@ -9,14 +9,27 @@ const argv = require('yargs')
     .argv;
 
 const releaseList = require('../release-list');
+const fs = require('fs');
 
-if (argv.r) {
-    parseBody = releaseList.reParseBody(argv.r);
-} else {
-    parseBody = releaseList.nullParseBody;
+function getBodyParser(argv) {
+    if (argv.r) {
+        return Promise.resolve(releaseList.reParseBody(argv.r));
+    }
+
+    return new Promise((resolve, reject) => {
+        fs.readFile(".release-list", "utf8", (err, data) => {
+            if (err) {
+                resolve(releaseList.nullParseBody());
+            } else {
+                resolve(releaseList.reParseBody(data.trim()));
+            }
+        });
+    });
 }
 
-const list = releaseList.listReleases(parseBody);
-list(argv._[0]).then(releaseList.printReleases, (err, stderr) => {
-    console.log(err, stderr);
+getBodyParser(argv).then(function(parseBody) {
+    const list = releaseList.listReleases(parseBody);
+    list(argv._[0]).then(releaseList.printReleases, (err, stderr) => {
+        console.log(err, stderr);
+    });
 });
