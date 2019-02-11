@@ -2,6 +2,12 @@
 
 `release-list` is a simple utility for generating a description for releasing.
 
+## Installation
+
+```bash
+npm install -g https://github.com/ragboyjr/release-list
+```
+
 ## Usage
 
 From inside of a git repository, just call `release-list {target-ref}..{base-ref}` and it will generate a list of commits that were changed
